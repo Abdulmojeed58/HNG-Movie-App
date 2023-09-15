@@ -9,29 +9,26 @@ import Movies from "../components/Movies";
 import { useGlobalContext } from "../store/globalContext";
 
 const Home = () => {
-  const navigate = useNavigation()
-
-
+    const navigate = useNavigation()
   const data: any = useLoaderData();
+
   const [filteredData, setFilterData] = useState<any>([]);
   const { value } = useGlobalContext();
 
   useEffect(() => {
-    console.log(value);
-    if (!value) {
-      setFilterData(data.splice(0, 10));
+    if (value.trim() === "") {
+      setFilterData(data.slice(0, 10));
       return;
     }
 
-    const newMovies = data.filter((item: any) =>
-      item.title.toLowerCase().includes(value.toLowerCase().trim())
-    );
+    const newMovies = data.filter((item: any) => {
+      return item.title.toLowerCase().includes(value.toLowerCase().trim());
+    });
+
     setFilterData(newMovies);
     console.log(newMovies);
   }, [value]);
 
-
-  console.log(filteredData);
   return (
     <>
       <div className="bg-hero-gb bg-center bg-no-repeat bg-cover">
@@ -46,7 +43,7 @@ const Home = () => {
             : ""
         } px-[25px] md:px-[50px] lg:px-[95px] pt-[15px]`}
       >
-        {navigate.state === 'loading' ? (
+        {navigate.state === "loading" ? (
           <p>Loading...</p>
         ) : filteredData.length === 0 && value !== "" ? (
           <p className="font-bold text-[24px]">No Movie Found</p>
@@ -75,7 +72,6 @@ const Home = () => {
 };
 
 export const loader = async () => {
-
   const res = await fetch(
     `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1`,
     {
