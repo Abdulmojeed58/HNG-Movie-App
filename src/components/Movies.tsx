@@ -13,11 +13,11 @@ const Movies = ({data}: any) => {
             </div>
             <div className='grid grid-cols-2 md:grid-cols-4 gap-[30px] lg:gap-[80px] mt-[44px]'>
                 {
-                    data.map((item: any, index: number)=>(
-                        <MovieItem key={index} image={item.poster_path} title={item.title} date={item.release_date.split('-')[0]
-                        } id={item.id} vote_average={item.vote_average * 10} />
+                    data.map((item: any, index: number)=>{
+                        return (
+                        <MovieItem key={index} image={item.poster_path} title={item.title} date={new Date(item.release_date).toUTCString()} id={item.id} vote_average={item.vote_average * 10} />
 
-                    ))
+                    )})
                 }
             </div>
         </div>

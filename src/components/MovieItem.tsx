@@ -22,6 +22,7 @@ const MovieItem: React.FC<MovieItemProps> = ({
   vote_average,
 }) => {
 
+
 const [isFavorite, setIsFavorite] = useState<boolean>(false)
 
 useEffect(()=>{
