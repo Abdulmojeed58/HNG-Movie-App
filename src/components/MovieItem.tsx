@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import IMDB from "../assets/images/MV5BMTk3ODA4Mjc0NF5BMl5BcG5nXkFtZTgwNDc1MzQ2OTE@ 1.png";
@@ -21,14 +21,32 @@ const MovieItem: React.FC<MovieItemProps> = ({
   id,
   vote_average,
 }) => {
+
+const [isFavorite, setIsFavorite] = useState<boolean>(false)
+
+useEffect(()=>{
+  const id = setTimeout(()=>{
+    setIsFavorite(false)
+  }, 2000)
+
+  return () => clearTimeout(id)
+
+}, [isFavorite])
+
+
+
   return (
     <Link to={`/${id}`} className="grid gap-[12px]" data-testid="movie-card">
+      {isFavorite && <p className="fixed top-[5%] right-[10%] bg-[#00000067] text-bold font-bold text-white p-5 rounded-[5px]">Added To favourite successfully</p>}
       <div className="relative">
         <div className="absolute flex top-0 left-0 right-0 items-center justify-between mx-[5px] md:mx-[16px] mt-[16px]">
           <p className="uppercase bg-[#F3F4F6] py-[8px] px-[3px] rounded-[100vh] font-bold text-[12px] text-[#111827]">
             Tv series
           </p>
-          <div className="p-[5px] bg-[#F3F4F6] rounded-full">
+          <div className="p-[5px] bg-[#F3F4F6] rounded-full" onClick={(e)=>{
+            e.preventDefault();
+            setIsFavorite(true)
+          }}>
             <LazyLoadImage src={Heart} alt="favourite" />
           </div>
         </div>
