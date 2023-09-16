@@ -20,20 +20,20 @@ const MovieDetails = () => {
   const [isActive, setIsActive] = useState<boolean>(false);
   const releaseDate = new Date(data.release_date).toUTCString();
 
-  function formatRuntime(minutes: number) {
-    const hours = Math.floor(minutes / 60);
-    const remainingMinutes = minutes % 60;
+  // function formatRuntime(minutes: number) {
+  //   const hours = Math.floor(minutes / 60);
+  //   const remainingMinutes = minutes % 60;
 
-    if (hours > 0) {
-      if (remainingMinutes > 0) {
-        return `${hours}h ${remainingMinutes}m`;
-      } else {
-        return `${hours}h`;
-      }
-    } else {
-      return `${minutes}m`;
-    }
-  }
+  //   if (hours > 0) {
+  //     if (remainingMinutes > 0) {
+  //       return `${hours}h ${remainingMinutes}m`;
+  //     } else {
+  //       return `${hours}h`;
+  //     }
+  //   } else {
+  //     return `${minutes}m`;
+  //   }
+  // }
 
   if(navigate.state === 'loading') {
     return <p>Loading...</p>
@@ -71,8 +71,8 @@ const MovieDetails = () => {
                 <span data-testid="movie-release-date">{releaseDate}</span> •
                 PG-13 •{" "}
                 <span data-testid="movie-runtime">
-                  {formatRuntime(data.runtime)}
-                </span>
+                  {data.runtime}
+                </span><span>m</span>
               </p>              
               {data.genres?.map((data: {id: number, name: string})=>(<button key={data.id} className="font-medium text-[15px] text-[#B91C1C] py-2 px-3 rounded-[15px] border border-[#F8E7EB] ml-[11px]">
                 {data.name}
